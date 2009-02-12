@@ -9,6 +9,9 @@ module Navigare
     :tab_separator_class => 'separator',
     :menu_tag => 'ul',
     :menu_class => 'menu',
+    :extra_content => false,
+    :menu_tag_with_extra_content => 'div',
+    :menu_class_with_extra_content => 'submenu',
     :link_tag => 'li',
     :link_class => 'menu_link',
     :link_separator => nil,
@@ -128,13 +131,27 @@ module Navigare
       content_tag(options[:nav_tag], tabs_html, :class => options[:nav_tag_class])
     end
 
+    def navigare_before_tab(tab); end
+    def navigare_after_tab(tab); end
+
     def navigare_tab(tab, options={})
       options = Navigare.render_options(options)
       return nil unless tab.available?(self)
       links = if tab.active?(self)
         links_sep = navigare_link_separator(options)
         links_html = tab.links.map {|link| navigare_link(link, options)}.join(links_sep)
-        content_tag(options[:menu_tag], links_html, :class => options[:menu_class])
+        links_html = content_tag(options[:menu_tag], links_html, :class => options[:menu_class])
+        if options[:extra_content]
+          before = navigare_before_tab(tab)
+          after = navigare_after_tab(tab)
+          links = content_tag(
+            options[:menu_tag_with_extra_content],
+            "#{before}#{links_html}#{after}",
+            :class => options[:menu_class_with_extra_content]
+          )
+        else
+          links_html
+        end
       end
         
       tab_title = if tab.default_link
