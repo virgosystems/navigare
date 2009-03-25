@@ -7,10 +7,10 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = "navigare"
-    s.summary = %Q{The Navigare gem plugin gives you the ability to setup the navigation system in your Rails application in a very flexible and centralized way.}
+    s.summary = %Q{The Navigare gem gives you the ability to setup the navigation system in your Rails application in a very flexible and centralized way.}
     s.email = "bacsi.laszlo@virgo.hu"
     s.homepage = "http://github.com/virgo/navigare"
-    s.description = "The Navigare gem plugin gives you the ability to setup the navigation system in your Rails application in a very flexible and centralized way."
+    s.description = "The Navigare gem gives you the ability to setup the navigation system in your Rails application in a very flexible and centralized way."
     s.authors = ["Laszlo Bacsi"]
     s.files = FileList['lib/**/*.rb', '[A-Z]*', 'test/**/*', 'rails/*'].to_a
   end
