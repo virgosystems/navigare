@@ -60,7 +60,6 @@ module Navigare
       if not nav.namespace.blank? and @controller[0] != ?/
         @controller = "#{nav.namespace}/#{@controller}"
       end
-      @controller.gsub!(/^\/*/, '')
       yield(self)
     end
 
@@ -90,7 +89,7 @@ module Navigare
     end
 
     def active?(view)
-      view.controller.controller_path == @controller and proc_or_true?(:active?, view)
+      view.controller.controller_path == @controller.gsub(/^\/*/, '') and proc_or_true?(:active?, view)
     end
 
     private
