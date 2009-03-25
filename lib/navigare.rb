@@ -89,7 +89,8 @@ module Navigare
     end
 
     def active?(view)
-      view.controller.controller_path == @controller.gsub(/^\/*/, '') and proc_or_true?(:active?, view)
+      ctrl = @options[:no_controller_check] || view.controller.controller_path == @controller.gsub(/^\/*/, '')
+      ctrl && proc_or_true?(:active?, view)
     end
 
     private
