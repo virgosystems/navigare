@@ -107,6 +107,7 @@ module Navigare
 
     def initialize(tab, name, params={}, options={})
       @tab, @name, @options = tab, name, options
+      @html_options = params.delete(:html) || {}
       @url_for_args = {
         :controller => tab.controller,
         :action => name.to_s
@@ -114,12 +115,21 @@ module Navigare
     end
 
     def url_for_args(view)
-      @url_for_args.dup.tap do |args|
+      resolve_procs(@url_for_args, view)
+    end
+    
+    def html_options(view)
+      resolve_procs(@html_options, view)
+    end
+    
+    private
+      def resolve_procs(hash, view)
+        args = hash.dup
         args.each do |key, value|
           args[key] = view.instance_eval(&value) if value.is_a?(Proc)
         end
+        args
       end
-    end
   end
 
   module Helpers
@@ -183,7 +193,7 @@ module Navigare
         name
       end
       path = url_for(link.url_for_args(self))
-      link = link_to(text, path)
+      link = link_to(text, path, link.html_options(self))
       if options[:plain]
         link
       else
