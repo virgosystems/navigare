@@ -4,6 +4,7 @@ module Navigare
     :nav_class => 'nav',
     :tab_tag => 'li',
     :tab_class => 'tab',
+    :tab_active_class => "active",
     :tab_separator => nil,
     :tab_separator_tag => 'span',
     :tab_separator_class => 'separator',
@@ -159,7 +160,9 @@ module Navigare
       else
         tab.title(self)
       end
-      content_tag(options[:tab_tag], "#{tab_title}\n#{links}", :class => options[:tab_class])
+      tab_class = options[:tab_class]
+      tab_class += " #{options[:tab_active_class]}" if tab.active?(self)
+      content_tag(options[:tab_tag], "#{tab_title}\n#{links}", :class => tab_class)
     end
 
     def navigare_tab_separator(options={})
