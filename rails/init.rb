@@ -1,1 +1,3 @@
-require File.join(File.dirname(__FILE__), "..", "init.rb")
+require 'navigare'
+
+ActionController::Base.helper Navigare::Helpers

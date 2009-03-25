@@ -12,6 +12,7 @@ begin
     s.homepage = "http://github.com/virgo/navigare"
     s.description = "The Navigare gem plugin gives you the ability to setup the navigation system in your Rails application in a very flexible and centralized way."
     s.authors = ["Laszlo Bacsi"]
+    s.files = FileList['lib/**/*.rb', '[A-Z]*', 'test/**/*', 'rails/*'].to_a
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
