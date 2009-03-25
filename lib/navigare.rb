@@ -137,7 +137,7 @@ module Navigare
     def navigare_tab(tab, options={})
       options = Navigare.render_options(options)
       return nil unless tab.available?(self)
-      links = if tab.active?(self)
+      links = if tab.active?(self) and not tab.links.empty?
         links_sep = navigare_link_separator(options)
         links_html = tab.links.map {|link| navigare_link(link, options)}.join(links_sep)
         links_html = content_tag(options[:menu_tag], links_html, :class => options[:menu_class])
